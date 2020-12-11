@@ -1,0 +1,24 @@
+@using NTR20Z.Models
+@using NTR20Z.Controllers
+    
+
+@model Reader   
+
+
+@{
+    ViewData["Title"] = "Dodawanie nauczyciela";
+}
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <div>
+        <p>Wprowadź nazwisko nowego nauczyciela</p>
+        @Html.TextBoxFor(Model=>Model.chosenTeacher)  
+    </div>
+
+    <button class="btn btn-danger" 
+    onclick="location.href='@Url.Action("AddTeacher", "Home", new { id = Model.chosenTeacher})'">Dodaj nauczyciela</button>
+}

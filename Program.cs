@@ -16,9 +16,8 @@ namespace NTR20Z
   {
     public static void Main(string[] args)
     {
-      InsertData(0);
+      //InsertData(0);
       InsertData(1);
-      Console.WriteLine("dupa bis");
       CreateHostBuilder(args).Build().Run();
   
     }

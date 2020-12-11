@@ -78,3 +78,8 @@
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/Teacher.cshtml.g.cs
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/Classroom.cshtml.g.cs
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/Group.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddActivity.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddActivityBis.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddTeacher.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddGroup.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddRoom.cshtml.g.cs

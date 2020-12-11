@@ -14392,6 +14392,11 @@
   "RootNamespace": "NTR20Z",
   "Documents": [
     {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/AddTeacher.cshtml",
+      "TargetPath": "Views\\Home\\AddTeacher.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
@@ -14404,6 +14409,11 @@
     {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Shared/_ValidationScriptsPartial.cshtml",
       "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/AddGroup.cshtml",
+      "TargetPath": "Views\\Home\\AddGroup.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14427,13 +14437,28 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/AddActivity.cshtml",
+      "TargetPath": "Views\\Home\\AddActivity.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/AddRoom.cshtml",
+      "TargetPath": "Views\\Home\\AddRoom.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/Group.cshtml",
       "TargetPath": "Views\\Home\\Group.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/AddActivityBis.cshtml",
+      "TargetPath": "Views\\Home\\AddActivityBis.cshtml",
       "FileKind": "mvc"
     },
     {

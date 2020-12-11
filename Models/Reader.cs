@@ -209,5 +209,101 @@ namespace NTR20Z.Models
                 }
             }
         }
+
+
+        public void InsertActivity(SingleActivity act)
+        {
+            using(var context = new LibraryContext())
+            { 
+                // Creates the database if not exists
+                context.Database.EnsureCreated();
+
+              Subject subject = new Subject();
+              subject.name = act.subject;
+              subject.comment = " ";
+              context.Subject.Add(subject);
+              
+
+              var classgroup = new Classgroup();
+              classgroup.name = act.group;
+              classgroup.comment = " ";
+              context.Classgroup.Add(classgroup);
+              
+
+              Room room = new Room();
+              room.name = act.room;
+              room.comment = " ";
+              context.Room.Add(room);
+              
+
+              Slot slot = new Slot();
+              slot.name = act.slot.ToString();
+              slot.comment = "komentarz";
+              context.Slot.Add(slot);
+              
+
+              Teacher teacherBis = new Teacher();
+              teacherBis.name = act.teacher;
+              teacherBis.comment = " ";
+              context.Teacher.Add(teacherBis);
+              
+
+              ActivityBis activityBis = new ActivityBis();
+              activityBis.Teacher = teacherBis;
+              activityBis.Subject = subject;
+              activityBis.Classgroup = classgroup;
+              activityBis.Room = room;
+              activityBis.Slot = slot;
+
+              context.ActivityBis.Add(activityBis);
+              context.SaveChanges();
+            }
+        }
+
+
+        public void InsertTeacher(string te)
+        {
+            using(var context = new LibraryContext())
+            { 
+                // Creates the database if not exists
+                context.Database.EnsureCreated();
+
+                Teacher teacherBis = new Teacher();
+                teacherBis.name = "clarkson";
+                teacherBis.comment = " ";
+                context.Teacher.Add(teacherBis);
+                context.SaveChanges();
+            }
+        }
+
+        public void InsertGroup(string gr)
+        {
+            using(var context = new LibraryContext())
+            { 
+                // Creates the database if not exists
+                context.Database.EnsureCreated();
+
+                Classgroup classGroupBis = new Classgroup();
+                classGroupBis.name = "3A";
+                classGroupBis.comment = " ";
+                context.Classgroup.Add(classGroupBis);
+                context.SaveChanges();
+            }
+        }
+
+        public void InsertRoom(string cl)
+        {
+            using(var context = new LibraryContext())
+            { 
+                // Creates the database if not exists
+                context.Database.EnsureCreated();
+
+                Room roomBis = new Room();
+                roomBis.name = "125";
+                roomBis.comment = " ";
+                context.Room.Add(roomBis);
+                context.SaveChanges();
+            }
+        }
     }
 }

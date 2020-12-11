@@ -1,8 +1,61 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using NTR20Z.Models
+
+@model Reader 
+
+@{
+    ViewData["Title"] = "Planner";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Planner</h1>
+    
 </div>
+
+
+@using(Html.BeginForm("RemoveTeacher", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button type="submit" class="btn btn-primary">Usuń nauczyciela</button>
+}
+
+@using(Html.BeginForm("AddTeacher", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button type="submit" class="btn btn-primary">Dodaj nauczyciela</button>
+}
+
+@using(Html.BeginForm("RemoveGroup", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button type="submit" class="btn btn-primary">Usuń klasę</button>
+}
+
+@using(Html.BeginForm("AddGroup", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button type="submit" class="btn btn-primary">Dodaj klasę</button>
+}
+
+@using(Html.BeginForm("RemoveRoom", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button type="submit" class="btn btn-primary">Usuń salę</button>
+}
+
+@using(Html.BeginForm("AddRoom", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button type="submit" class="btn btn-primary">Dodaj salę</button>
+}

@@ -1,0 +1,24 @@
+@using NTR20Z.Models
+@using NTR20Z.Controllers
+    
+
+@model Reader   
+
+
+@{
+    ViewData["Title"] = "Dodawanie klasy";
+}
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <div>
+        <p>Wprowadź nazwę nowej klasy</p>
+        @Html.TextBoxFor(Model=>Model.chosenGroup)  
+    </div>
+
+    <button class="btn btn-danger" 
+    onclick="location.href='@Url.Action("AddGroup", "Home", new { id = Model.chosenGroup})'">Dodaj klasę</button>
+}
