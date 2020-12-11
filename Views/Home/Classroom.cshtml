@@ -1,0 +1,71 @@
+@using NTR20Z.Models
+
+@model Reader   
+
+@{
+    string[] Days = {"Czas", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek"};
+
+    string[] Hours = {"8:00-8:45", "8:55-9:40", "9:50-10:35", "10:45-11:30", "11:40-12:25", "12:35-13:20", "13:25-14:10", "14:15-15:00"};
+}
+
+@{
+    ViewData["Title"] = "Classrooms";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Witaj w panelu sali lekcyjnej</h1>
+    
+</div>
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <div>
+        @Html.LabelFor(model=>model.rooms)
+        @Html.DropDownListFor(model=>model.chosen, new SelectList(Model.rooms), "Select classroom", new {htmlAtributes = new {@class = "form-control"}})
+    </div>
+
+    <button type = "submit" class = "btn btn-primary">refresh</button>
+
+    @Html.ActionLink("Dodaj aktywność", "AddActivity", "Home", new { @type="button", 
+                    @class="btn btn-primary", @style="height:40px;width:140px"})
+    <br>
+
+    @for (int i = 0; i < 6; i++)
+    {
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" style="height:40px;width:140px" >@Days[i]</button>
+        </div>
+    }
+
+    <br> 
+
+        @for (int i = 0; i < 8; i++)
+    {
+        <button type="button" class="btn btn-primary" style="height:40px;width:140px">@Hours[i]</button>
+        @for (int j = 1; j < 6; j++)
+        { 
+            int check = 0;
+            @for (int k = 0; k< Model.activities.Count; k++)
+            {
+                @if (Model.activities[k].slot == 5*i +j  && Model.activities[k].room == Model.chosen)
+                {
+                    string checkBis = Model.activities[k].group;
+                    @Html.ActionLink(checkBis, "EditWindow", "Home", new { id=k}, new { @type="button", 
+                    @class="btn btn-primary", @style="height:40px;width:140px"})
+                    check = 1;
+                    break;
+                }
+            }  
+
+            if(check == 0)
+            {
+                 <button type="button" class="btn btn-primary" style="height:40px;width:140px" > </button>
+            }
+        }
+        <br> 
+    }
+
+}

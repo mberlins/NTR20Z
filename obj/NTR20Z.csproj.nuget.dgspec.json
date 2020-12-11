@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/mich/Pulpit/NTR20Z/NTR20Z.csproj": {}
+  },
+  "projects": {
+    "/home/mich/Pulpit/NTR20Z/NTR20Z.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/mich/Pulpit/NTR20Z/NTR20Z.csproj",
+        "projectName": "NTR20Z",
+        "projectPath": "/home/mich/Pulpit/NTR20Z/NTR20Z.csproj",
+        "packagesPath": "/home/mich/.nuget/packages/",
+        "outputPath": "/home/mich/Pulpit/NTR20Z/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/mich/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
