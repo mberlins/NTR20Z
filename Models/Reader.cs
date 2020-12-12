@@ -269,7 +269,7 @@ namespace NTR20Z.Models
                 context.Database.EnsureCreated();
 
                 Teacher teacherBis = new Teacher();
-                teacherBis.name = "clarkson";
+                teacherBis.name = te;
                 teacherBis.comment = " ";
                 context.Teacher.Add(teacherBis);
                 context.SaveChanges();
@@ -284,7 +284,7 @@ namespace NTR20Z.Models
                 context.Database.EnsureCreated();
 
                 Classgroup classGroupBis = new Classgroup();
-                classGroupBis.name = "3A";
+                classGroupBis.name = gr;
                 classGroupBis.comment = " ";
                 context.Classgroup.Add(classGroupBis);
                 context.SaveChanges();
@@ -299,7 +299,7 @@ namespace NTR20Z.Models
                 context.Database.EnsureCreated();
 
                 Room roomBis = new Room();
-                roomBis.name = "125";
+                roomBis.name = cl;
                 roomBis.comment = " ";
                 context.Room.Add(roomBis);
                 context.SaveChanges();

@@ -96,7 +96,7 @@ namespace NTR20Z.Controllers
         {
             myJsonObject.chosenTeacher = check.chosenTeacher;
             myJsonObject.InsertTeacher(check.chosenTeacher);
-            return View(myJsonObject);
+            return RedirectToAction("Index");
         }
 
         public IActionResult AddGroup()
@@ -109,7 +109,7 @@ namespace NTR20Z.Controllers
         {
             myJsonObject.chosenGroup = check.chosenGroup;
             myJsonObject.InsertGroup(check.chosenGroup);
-            return View(myJsonObject);
+            return RedirectToAction("Index");
         }
 
         public IActionResult AddRoom()
@@ -122,7 +122,7 @@ namespace NTR20Z.Controllers
         {
             myJsonObject.chosenRoom = check.chosenRoom;
             myJsonObject.InsertRoom(myJsonObject.chosenRoom);
-            return View(myJsonObject);
+            return RedirectToAction("Index");
         }
 
         /*public IActionResult EditWindow( int id)

@@ -25,7 +25,9 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
 
-    <button type="submit" class="btn btn-primary">Dodaj nauczyciela</button>
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("AddTeacher", "Home")';return false;">Dodaj nauczyciela</button>
+  
 }
 
 @using(Html.BeginForm("RemoveGroup", "Home"))
@@ -41,7 +43,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
 
-    <button type="submit" class="btn btn-primary">Dodaj klasę</button>
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("AddGroup", "Home")';return false;">Dodaj klasę</button>
 }
 
 @using(Html.BeginForm("RemoveRoom", "Home"))
@@ -57,5 +60,6 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
 
-    <button type="submit" class="btn btn-primary">Dodaj salę</button>
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("AddRoom", "Home")';return false;">Dodaj salę</button>
 }
