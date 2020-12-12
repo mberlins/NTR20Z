@@ -1,0 +1,58 @@
+@using NTR20Z.Models
+@using NTR20Z.Controllers
+    
+
+@model Reader   
+
+
+@{
+    ViewData["Title"] = "Edycja planu";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Witaj w panelu edycji planu lekcji</h1>
+    
+</div>
+
+@{ int activityToEditIndex = (int)ViewData["lessonToEditIndex"];}
+
+@using (Html.BeginForm("EditWindowBis", "Home", new { id = activityToEditIndex}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    
+    
+    @Html.DropDownListFor(model=>model.editedActivity.room, new SelectList(Model.availableRooms, @Model.activities[activityToEditIndex].room), "Select new Room", 
+    new {htmlAtributes = new {@class = "form-control"}})
+    @Html.DropDownListFor(model=>model.editedActivity.group, new SelectList(Model.availableGroups, @Model.activities[activityToEditIndex].group), "Select new Group",
+    new {htmlAtributes = new {@class = "form-control"}})
+    @Html.DropDownListFor(model=>model.editedActivity.subject, new SelectList(Model.subjects, @Model.activities[activityToEditIndex].subject), "Select new Subject",
+    new {htmlAtributes = new {@class = "form-control"}})
+    @Html.DropDownListFor(model=>model.editedActivity.teacher, new SelectList(Model.availableTeachers, @Model.activities[activityToEditIndex].teacher), "Select new Teacher",
+    new {htmlAtributes = new {@class = "form-control"}})
+
+    /*<button class="btn btn-success"   dziala
+    onclick="location.href='@Url.Action("EditWindowBis", "Home", new { index = ViewBag.id })'">Akceptuj</button>*/
+
+
+    //<button class="btn btn-danger" 
+    //onclick="location.href='@Url.Action("DeleteActivity", "Home", new { index = activityToEditIndex})'">Usun zdarzenie</button>
+    
+    
+    <button type="submit" class="btn btn-primary">Edit</button>
+    //<button class= "btn btn-primary" onclick=" location.href = '@Url.Action("EditWindowBis", "Home", new{index = activityToEditIndex })'">Edit</button> 
+}
+
+@using (Html.BeginForm("DeleteActivity", "Home", new { id = activityToEditIndex }))
+{
+  /*<button class="btn btn-danger"
+    onclick="location.href='@Url.Action("DeleteActivity", "Home", new { index = activityToEditIndex })'">Usuń</button>*/
+
+    <button type="submit" class="btn btn-primary">Usuń</button>
+}
+
+
+@foreach (SingleActivity activity in Model.activities)
+{
+    Console.WriteLine(activity.subject);
+}

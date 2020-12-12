@@ -125,13 +125,13 @@ namespace NTR20Z.Controllers
             return RedirectToAction("Index");
         }
 
-        /*public IActionResult EditWindow( int id)
+        public IActionResult EditWindow( int id)
         {
             ViewData["lessonToEditIndex"] = id; 
             myJsonObject.checkAvailibility(myJsonObject.activities[id].slot);
-            /*int check = id;
-            string plik = System.IO.File.ReadAllText(@"text.json");
-            myJsonObject = JsonSerializer.Deserialize<Reader>(plik);
+            int check = id;
+            //string plik = System.IO.File.ReadAllText(@"text.json");
+            //myJsonObject = JsonSerializer.Deserialize<Reader>(plik);
             myJsonObject.selectedButton = id;
 
             return View(myJsonObject);
@@ -140,20 +140,16 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult EditWindowBis(Reader check,  int id)
         {
-            myJsonObject.activities[id].room = check.editedActivity.room;
+            myJsonObject.editActivity(check.editedActivity, id);
+            /*myJsonObject.activities[id].room = check.editedActivity.room;
             myJsonObject.activities[id].group = check.editedActivity.group;
             myJsonObject.activities[id].subject = check.editedActivity.subject;
             myJsonObject.activities[id].teacher = check.editedActivity.teacher;
-            myJsonObject.selectedButton = id;
-
-            string jsonString;
-            jsonString = JsonSerializer.Serialize(myJsonObject);
-            System.IO.File.WriteAllText("text.json", jsonString);
-
+            myJsonObject.selectedButton = id;*/
 
             return RedirectToAction("Index");
         }
-
+        /*
         [HttpPost]
         public IActionResult DeleteActivity(int id)
         {

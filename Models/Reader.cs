@@ -201,6 +201,54 @@ namespace NTR20Z.Models
             }
         }
 
+        public void editActivity(SingleActivity acti, int id)
+        {
+            //string te = activities[id].teacher;
+            //string sl = activities[id].slot.ToString();
+
+            string te = "Zbyszek";
+            string sl = "13";
+
+            using (var context = new LibraryContext())
+            {
+                var teach = context.Teacher;
+                var subs = context.Subject;
+                var groupss = context.Classgroup;
+                var roomss = context.Room;
+                var slotss = context.Slot;
+                var activitiess = context.ActivityBis.Include(p => p.Slot).Include(t => t.Teacher).Include(r => r.Room)
+                                                        .Include(c => c.Classgroup).Include(s => s.Subject);
+
+                var ActivitiesBis = from a in activitiess where (a.Teacher.name == te && a.Slot.name == sl) select a;
+                var activityTer = ActivitiesBis.Single();
+
+                foreach (var s in subs)
+                {
+                    if (s.name == acti.subject)
+                        activityTer.Subject = s;
+                }
+
+                foreach (var t in teach)
+                {
+                    if (t.name == acti.teacher)
+                        activityTer.Teacher = t;
+                }
+
+                foreach (var g in groupss)
+                {
+                    if (g.name == acti.group)
+                        activityTer.Classgroup = g;
+                }
+
+                foreach (var r in roomss)
+                {
+                    if (r.name == acti.room)
+                        activityTer.Room = r;
+                }
+
+                context.SaveChanges();
+            }
+        }
 
         public void InsertActivity(SingleActivity act)
         {

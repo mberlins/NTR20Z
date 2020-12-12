@@ -14422,6 +14422,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/EditWindow.cshtml",
+      "TargetPath": "Views\\Home\\EditWindow.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Shared/Error.cshtml",
       "TargetPath": "Views\\Shared\\Error.cshtml",
       "FileKind": "mvc"
