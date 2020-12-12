@@ -17,7 +17,7 @@ namespace NTR20Z
     public static void Main(string[] args)
     {
       //InsertData(0);
-      InsertData(1);
+      //InsertData(1);
       CreateHostBuilder(args).Build().Run();
   
     }

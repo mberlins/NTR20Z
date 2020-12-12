@@ -79,7 +79,7 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult AddActivityBis(Reader check)
         {
-            myJsonObject.activities.Add(check.newActivity);
+            //myJsonObject.activities.Add(check.newActivity);
             myJsonObject.InsertActivity(check.newActivity);
 
             return RedirectToAction("Index");

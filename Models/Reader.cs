@@ -11,34 +11,34 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 using NTR20Z.Models;
 
-namespace NTR20Z.Models 
+namespace NTR20Z.Models
 {
     public class Reader
     {
-        public string chosen {get; set;}
-        public string chosenTeacher{get;set;}
-        public string chosenGroup{get;set;}
-        public string chosenRoom{get;set;}
-        public int selectedButton {get;set;}
-        public int slotToCheck{get;set;}
+        public string chosen { get; set; }
+        public string chosenTeacher { get; set; }
+        public string chosenGroup { get; set; }
+        public string chosenRoom { get; set; }
+        public int selectedButton { get; set; }
+        public int slotToCheck { get; set; }
 
-        public SingleActivity editedActivity{get;set;}
-        public SingleActivity newActivity{get;set;}
+        public SingleActivity editedActivity { get; set; }
+        public SingleActivity newActivity { get; set; }
         /*public string[] groups {get; set;}
         public string[] teachers {get; set;}
         public string[] subjects {get; set;}
         public string[] rooms {get; set;}*/
 
-        public List<string> groups {get; set;}
-        public List<string> teachers {get; set;}
-        public List<string> subjects {get; set;}
-        public List<string> rooms {get; set;}
+        public List<string> groups { get; set; }
+        public List<string> teachers { get; set; }
+        public List<string> subjects { get; set; }
+        public List<string> rooms { get; set; }
 
-        public List<string> availableGroups{get;set;}
-        public List<string> availableTeachers{get;set;}
-        public List<string> availableRooms{get;set;}
+        public List<string> availableGroups { get; set; }
+        public List<string> availableTeachers { get; set; }
+        public List<string> availableRooms { get; set; }
 
-        public List<SingleActivity> activities {get; set;}
+        public List<SingleActivity> activities { get; set; }
 
         public Reader()
         {
@@ -54,37 +54,36 @@ namespace NTR20Z.Models
                 var subs = context.Subject;
                 var groupss = context.Classgroup;
                 var roomss = context.Room;
-                var slots = context.Slot;
-                var activitiess = context.ActivityBis;
+                var activitiess = context.ActivityBis.Include(p => p.Slot);
 
-                foreach(var t in teach)
+                foreach (var t in teach)
                 {
                     string tmp = t.name;
                     teachers.Add(tmp);
                 }
 
-                foreach(var t in subs)
+                foreach (var t in subs)
                 {
                     subjects.Add(t.name);
                 }
 
-                foreach(var t in groupss)
+                foreach (var t in groupss)
                 {
                     groups.Add(t.name);
                 }
 
-                foreach(var t in roomss)
+                foreach (var t in roomss)
                 {
                     rooms.Add(t.name);
                 }
 
-                int i = 0;
-                foreach(var t in activitiess)
+
+                foreach (var t in activitiess)
                 {
-                    
+
                     SingleActivity acti = new SingleActivity();
-                    //acti.slot = Int32.Parse(t.Slot.name);
-                    acti.slot = i++;
+                    acti.slot = Int32.Parse(t.Slot.name);
+
                     //acti.slot = t.Slot.slotID;
                     acti.subject = t.Subject.name;
                     acti.teacher = t.Teacher.name;
@@ -100,7 +99,7 @@ namespace NTR20Z.Models
                 }
             }
         }
-        
+
         public void removeActivity(int index)
         {
             activities.RemoveAt(index);
@@ -108,24 +107,24 @@ namespace NTR20Z.Models
 
         public void removeTeacher(string name)
         {
-            int index = 1 ;
+            int index = 1;
 
-            for (int i=0; i<teachers.Count; i++)
+            for (int i = 0; i < teachers.Count; i++)
             {
-                if(teachers[i]==name)
+                if (teachers[i] == name)
                 {
                     index = i;
                     break;
                 }
             }
 
-            
-           
+
+
             teachers.RemoveAt(index);
 
-            for(int i =0; i < activities.Count; i++)
+            for (int i = 0; i < activities.Count; i++)
             {
-               
+
                 if (activities[i].teacher == name)
                     activities[i].teacher = "Brak";
             }
@@ -134,11 +133,11 @@ namespace NTR20Z.Models
 
         public void removeGroup(string name)
         {
-            int index = 1 ;
+            int index = 1;
 
-            for (int i=0; i<groups.Count; i++)
+            for (int i = 0; i < groups.Count; i++)
             {
-                if(groups[i]==name)
+                if (groups[i] == name)
                 {
                     index = i;
                     break;
@@ -147,9 +146,9 @@ namespace NTR20Z.Models
 
             groups.RemoveAt(index);
 
-            for(int i =0; i < activities.Count; i++)
+            for (int i = 0; i < activities.Count; i++)
             {
-               
+
                 if (activities[i].group == name)
                     activities[i].group = "Brak";
             }
@@ -158,11 +157,11 @@ namespace NTR20Z.Models
 
         public void removeRoom(string name)
         {
-            int index = 1 ;
+            int index = 1;
 
-            for (int i=0; i<rooms.Count; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
-                if(rooms[i]==name)
+                if (rooms[i] == name)
                 {
                     index = i;
                     break;
@@ -171,9 +170,9 @@ namespace NTR20Z.Models
 
             rooms.RemoveAt(index);
 
-            for(int i =0; i < activities.Count; i++)
+            for (int i = 0; i < activities.Count; i++)
             {
-               
+
                 if (activities[i].room == name)
                     activities[i].room = "Brak";
             }
@@ -186,22 +185,22 @@ namespace NTR20Z.Models
             availableRooms.Clear();
             availableTeachers.Clear();
 
-            for(int i = 0; i < groups.Count; i++)
+            for (int i = 0; i < groups.Count; i++)
             {
                 availableGroups.Add(groups[i]);
             }
-            for(int i = 0; i < rooms.Count; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
                 availableRooms.Add(rooms[i]);
             }
-            for(int i = 0; i < teachers.Count; i++)
+            for (int i = 0; i < teachers.Count; i++)
             {
                 availableTeachers.Add(teachers[i]);
             }
 
-            for (int i =0; i <activities.Count; i++)
+            for (int i = 0; i < activities.Count; i++)
             {
-                if(activities[i].slot == slotToCheck)
+                if (activities[i].slot == slotToCheck)
                 {
                     availableGroups.Remove(activities[i].group);
                     availableRooms.Remove(activities[i].room);
@@ -213,58 +212,75 @@ namespace NTR20Z.Models
 
         public void InsertActivity(SingleActivity act)
         {
-            using(var context = new LibraryContext())
-            { 
+            using (var context = new LibraryContext())
+            {
                 // Creates the database if not exists
                 context.Database.EnsureCreated();
 
-              Subject subject = new Subject();
-              subject.name = act.subject;
-              subject.comment = " ";
-              context.Subject.Add(subject);
-              
+                int checkBis = 0;
+                var teach = context.Teacher;
+                var subs = context.Subject;
+                var groupss = context.Classgroup;
+                var roomss = context.Room;
+                var slotss = context.Slot;
+                var activitiess = context.ActivityBis.Include(p => p.Slot);
 
-              var classgroup = new Classgroup();
-              classgroup.name = act.group;
-              classgroup.comment = " ";
-              context.Classgroup.Add(classgroup);
-              
 
-              Room room = new Room();
-              room.name = act.room;
-              room.comment = " ";
-              context.Room.Add(room);
-              
 
-              Slot slot = new Slot();
-              slot.name = act.slot.ToString();
-              slot.comment = "komentarz";
-              context.Slot.Add(slot);
-              
+                ActivityBis activityBis = new ActivityBis();
 
-              Teacher teacherBis = new Teacher();
-              teacherBis.name = act.teacher;
-              teacherBis.comment = " ";
-              context.Teacher.Add(teacherBis);
-              
+                foreach (var s in subs)
+                {
+                    if (s.name == act.subject)
+                        activityBis.Subject = s;
+                }
 
-              ActivityBis activityBis = new ActivityBis();
-              activityBis.Teacher = teacherBis;
-              activityBis.Subject = subject;
-              activityBis.Classgroup = classgroup;
-              activityBis.Room = room;
-              activityBis.Slot = slot;
+                foreach (var t in teach)
+                {
+                    if (t.name == act.teacher)
+                        activityBis.Teacher = t;
+                }
 
-              context.ActivityBis.Add(activityBis);
-              context.SaveChanges();
+                foreach (var g in groupss)
+                {
+                    if (g.name == act.group)
+                        activityBis.Classgroup = g;
+                }
+
+                foreach (var r in roomss)
+                {
+                    if (r.name == act.room)
+                        activityBis.Room = r;
+                }
+
+                foreach (var s in slotss)
+                {
+                    if (s.name == act.slot.ToString())
+                    {
+                        activityBis.Slot = s;
+                        checkBis = 1;
+                    }
+                }
+
+                if (checkBis == 0)
+                {
+                    Slot slot = new Slot();
+                    slot.name = act.slot.ToString();
+                    slot.comment = " ";
+                    context.Slot.Add(slot);
+                    activityBis.Slot = slot;
+                }
+
+                context.ActivityBis.Add(activityBis);
+                context.SaveChanges();
             }
         }
 
 
         public void InsertTeacher(string te)
         {
-            using(var context = new LibraryContext())
-            { 
+            using (var context = new LibraryContext())
+            {
                 // Creates the database if not exists
                 context.Database.EnsureCreated();
 
@@ -278,8 +294,8 @@ namespace NTR20Z.Models
 
         public void InsertGroup(string gr)
         {
-            using(var context = new LibraryContext())
-            { 
+            using (var context = new LibraryContext())
+            {
                 // Creates the database if not exists
                 context.Database.EnsureCreated();
 
@@ -293,8 +309,8 @@ namespace NTR20Z.Models
 
         public void InsertRoom(string cl)
         {
-            using(var context = new LibraryContext())
-            { 
+            using (var context = new LibraryContext())
+            {
                 // Creates the database if not exists
                 context.Database.EnsureCreated();
 
