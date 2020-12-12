@@ -164,7 +164,7 @@ namespace NTR20Z.Controllers
             jsonString = JsonSerializer.Serialize(myJsonObject);
             System.IO.File.WriteAllText("text.json", jsonString);
             return RedirectToAction("Teacher");
-        }
+        }*/
 
         
         public IActionResult RemoveTeacher()
@@ -175,15 +175,11 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult RemoveTeacher(Reader check, string id)
         {
-            myJsonObject.chosenTeacher = check.chosenTeacher;
-            myJsonObject.removeTeacher(myJsonObject.chosenTeacher);
-            string jsonString;
-            jsonString = JsonSerializer.Serialize(myJsonObject);
-            System.IO.File.WriteAllText("text.json", jsonString);
-            return View(myJsonObject);
+            myJsonObject.removeTeacher(check.chosenTeacher);
+            return RedirectToAction("Index");
         }
 
-        public IActionResult RemoveGroup()
+        /*public IActionResult RemoveGroup()
         {
             return View(myJsonObject);
         }
@@ -218,35 +214,20 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult Classroom(Reader myJsonObject)
         {
-            /*string check = myJsonObject.chosen;
-            string plik = System.IO.File.ReadAllText(@"text.json");
-            myJsonObject = JsonSerializer.Deserialize<Reader>(plik);
-            myJsonObject.chosen = check;*/
             return View(myJsonObject);
         }
 
         [HttpPost]
         public IActionResult Group(Reader myJsonObject)
         {
-            /*string check = myJsonObject.chosen;
-            string plik = System.IO.File.ReadAllText(@"text.json");
-            myJsonObject = JsonSerializer.Deserialize<Reader>(plik);
-            myJsonObject.chosen = check;*/
             return View(myJsonObject);
         }
 
         [HttpPost]
         public IActionResult Teacher(Reader myJsonObject)
         {
-            /*string check = myJsonObject.chosen;
-            string plik = System.IO.File.ReadAllText(@"text.json");
-            myJsonObject = JsonSerializer.Deserialize<Reader>(plik);
-            myJsonObject.chosen = check;*/
-
             return View(myJsonObject);
         }
-
-
         
         public IActionResult Error()
         {

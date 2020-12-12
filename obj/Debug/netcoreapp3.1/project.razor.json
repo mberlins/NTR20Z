@@ -14392,6 +14392,11 @@
   "RootNamespace": "NTR20Z",
   "Documents": [
     {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/RemoveTeacher.cshtml",
+      "TargetPath": "Views\\Home\\RemoveTeacher.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/AddTeacher.cshtml",
       "TargetPath": "Views\\Home\\AddTeacher.cshtml",
       "FileKind": "mvc"

@@ -83,3 +83,4 @@
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddTeacher.cshtml.g.cs
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddGroup.cshtml.g.cs
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddRoom.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/RemoveTeacher.cshtml.g.cs

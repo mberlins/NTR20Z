@@ -105,30 +105,22 @@ namespace NTR20Z.Models
             activities.RemoveAt(index);
         }
 
-        public void removeTeacher(string name)
+        public void removeTeacher(string nameToDelete)
         {
-            int index = 1;
-
-            for (int i = 0; i < teachers.Count; i++)
+            for (int i =0; i < activities.Count; i++)
             {
-                if (teachers[i] == name)
-                {
-                    index = i;
-                    break;
-                }
+                if (activities[i].teacher == nameToDelete)
+                    return;
             }
-
-
-
-            teachers.RemoveAt(index);
-
-            for (int i = 0; i < activities.Count; i++)
+            
+            using(var context = new LibraryContext())
             {
+                var teachers = from t in context.Teacher where t.name == nameToDelete select t;
 
-                if (activities[i].teacher == name)
-                    activities[i].teacher = "Brak";
+                var teacher = teachers.Single();
+                context.Teacher.Remove(teacher);
+                context.SaveChanges();
             }
-
         }
 
         public void removeGroup(string name)
@@ -284,11 +276,23 @@ namespace NTR20Z.Models
                 // Creates the database if not exists
                 context.Database.EnsureCreated();
 
-                Teacher teacherBis = new Teacher();
-                teacherBis.name = te;
-                teacherBis.comment = " ";
-                context.Teacher.Add(teacherBis);
-                context.SaveChanges();
+                if( te != null)
+                {
+                    Teacher teacherBis = new Teacher();
+                    teacherBis.name = te;
+                    teacherBis.comment = " ";
+                    context.Teacher.Add(teacherBis);
+                    context.SaveChanges();
+                }
+                else 
+                {
+                    Teacher teacherBis = new Teacher();
+                    teacherBis.name = " ";
+                    teacherBis.comment = " ";
+                    context.Teacher.Add(teacherBis);
+                    context.SaveChanges();
+                }
+                
             }
         }
 

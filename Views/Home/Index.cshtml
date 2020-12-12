@@ -17,7 +17,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
 
-    <button type="submit" class="btn btn-primary">Usuń nauczyciela</button>
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("RemoveTeacher", "Home")';return false;">Usun nauczyciela</button>
 }
 
 @using(Html.BeginForm("AddTeacher", "Home"))
