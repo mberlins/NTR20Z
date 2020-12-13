@@ -1,0 +1,26 @@
+@using NTR20Z.Models
+
+@model Reader 
+
+@{
+    ViewData["Title"] = "Usuwanie przedmiotu";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ekran usuwania przedmiotu</h1>
+    
+</div>
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <div>
+        @Html.LabelFor(model=>model.subjects)
+        @Html.DropDownListFor(Model=>Model.chosenSubject, new SelectList(Model.subjects), "Select room", new {htmlAtributes = new {@class = "form-control"}})
+    </div>
+
+    <button class="btn btn-danger" 
+    onclick="location.href='@Url.Action("RemoveSubject", "Home", new { id = Model.chosenSubject})'">Usuń przedmiot</button>
+}

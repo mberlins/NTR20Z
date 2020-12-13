@@ -132,8 +132,26 @@ namespace NTR20Z.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult AddSubject()
+        {
+            return View(myJsonObject);
+        }
+
+        [HttpPost]
+        public IActionResult AddSubject(Reader check, string id)
+        {
+            myJsonObject.chosenSubject = check.chosenSubject;
+            myJsonObject.InsertSubject(myJsonObject.chosenSubject);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult EditWindow( int id)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
+            myJsonObject.ReadRooms();
+            myJsonObject.ReadTeachers();
+            myJsonObject.ReadSubjects();
             ViewData["lessonToEditIndex"] = id; 
             myJsonObject.checkAvailibility(myJsonObject.activities[id].slot);
             //int check = id;
@@ -145,6 +163,11 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult EditWindowBis(Reader check,  int id)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
+            myJsonObject.ReadRooms();
+            myJsonObject.ReadTeachers();
+            myJsonObject.ReadSubjects();
             myJsonObject.editActivity(check.editedActivity, id);
 
             return RedirectToAction("Index");
@@ -153,6 +176,7 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult DeleteActivity(int id)
         {
+            myJsonObject.ReadActivities();
             myJsonObject.selectedButton = id;
             myJsonObject.removeActivity(id);
             
@@ -162,49 +186,81 @@ namespace NTR20Z.Controllers
         
         public IActionResult RemoveTeacher()
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadTeachers();
             return View(myJsonObject);
         }
 
         [HttpPost]
         public IActionResult RemoveTeacher(Reader check, string id)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadTeachers();
             myJsonObject.removeTeacher(check.chosenTeacher);
             return RedirectToAction("Index");
         }
 
         public IActionResult RemoveGroup()
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
             return View(myJsonObject);
         }
 
         [HttpPost]
         public IActionResult RemoveGroup(Reader check, string id)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
             myJsonObject.removeGroup(check.chosenGroup);
             return RedirectToAction("Index");
         }
 
         public IActionResult RemoveRoom()
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadRooms();
             return View(myJsonObject);
         }
 
         [HttpPost]
         public IActionResult RemoveRoom(Reader check, string id)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadRooms();
             myJsonObject.removeRoom(check.chosenRoom);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult RemoveSubject()
+        {
+            myJsonObject.ReadSubjects();
+            myJsonObject.ReadActivities();
+            return View(myJsonObject);
+        }
+
+        [HttpPost]
+        public IActionResult RemoveSubject(Reader check, string id)
+        {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadSubjects();
+            myJsonObject.removeSubject(check.chosenSubject);
             return RedirectToAction("Index");
         }
         
         [HttpPost]
         public IActionResult Classroom(Reader myJsonObject)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadRooms();
             return View(myJsonObject);
         }
 
         [HttpPost]
         public IActionResult Group(Reader myJsonObject)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
             return View(myJsonObject);
         }
 

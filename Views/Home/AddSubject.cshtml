@@ -1,0 +1,24 @@
+@using NTR20Z.Models
+@using NTR20Z.Controllers
+    
+
+@model Reader   
+
+
+@{
+    ViewData["Title"] = "Dodawanie przedmiotu";
+}
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <div>
+        <p>Wprowadź nazwę nowego przedmiotu</p>
+        @Html.TextBoxFor(Model=>Model.chosenSubject)  
+    </div>
+
+    <button class="btn btn-danger" 
+    onclick="location.href='@Url.Action("AddSubject", "Home", new { id = Model.chosenSubject})'">Dodaj przedmiot</button>
+}

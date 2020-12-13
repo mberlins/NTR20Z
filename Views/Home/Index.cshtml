@@ -65,3 +65,21 @@
     <button class="btn btn-primary"
     onclick="location.href='@Url.Action("AddRoom", "Home")';return false;">Dodaj salę</button>
 }
+
+@using(Html.BeginForm("RemoveSubject", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("RemoveSubject", "Home")';return false;">Usuń przedmiot</button>
+}
+
+@using(Html.BeginForm("AddSubject", "Home"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("AddSubject", "Home")';return false;">Dodaj przedmiot</button>
+}

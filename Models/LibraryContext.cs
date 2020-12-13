@@ -26,6 +26,7 @@ namespace NTR20Z.Models
         entity.HasKey(e => e.teacherID);
         entity.Property(e => e.name).IsRequired();
         entity.Property(e => e.comment).IsRequired();
+        entity.Property(e => e.TimeStamp);
       });
 
       modelBuilder.Entity<Subject>(entity =>
@@ -33,6 +34,7 @@ namespace NTR20Z.Models
         entity.HasKey(e => e.subjectID);
         entity.Property(e => e.name).IsRequired();
         entity.Property(e => e.comment).IsRequired();
+        entity.Property(e => e.TimeStamp);
       });
 
       modelBuilder.Entity<Classgroup>(entity =>
@@ -40,6 +42,7 @@ namespace NTR20Z.Models
         entity.HasKey(e => e.classgroupID);
         entity.Property(e => e.name).IsRequired();
         entity.Property(e => e.comment).IsRequired();
+        entity.Property(e => e.TimeStamp);
       });
 
       modelBuilder.Entity<Room>(entity =>
@@ -47,6 +50,7 @@ namespace NTR20Z.Models
         entity.HasKey(e => e.roomID);
         entity.Property(e => e.name).IsRequired();
         entity.Property(e => e.comment).IsRequired();
+        entity.Property(e => e.TimeStamp);
       });
 
       modelBuilder.Entity<Slot>(entity =>
@@ -54,6 +58,7 @@ namespace NTR20Z.Models
         entity.HasKey(e => e.slotID);
         entity.Property(e => e.name).IsRequired();
         entity.Property(e => e.comment).IsRequired();
+        entity.Property(e => e.TimeStamp);
       });
 
       modelBuilder.Entity<ActivityBis>(entity =>
@@ -69,6 +74,7 @@ namespace NTR20Z.Models
           .WithMany(p => p.Activities);
         entity.HasOne(d => d.Slot)
           .WithMany(p => p.Activities);
+        entity.Property(e => e.TimeStamp);
       });
     }
   }

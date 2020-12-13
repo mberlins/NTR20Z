@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Windows;
+using System;
 
 namespace NTR20Z.Models
 {
@@ -10,6 +11,7 @@ namespace NTR20Z.Models
     //[MaxLength(30)]
     public string name {get;set;}
     public string comment {get;set;}
+    public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
     
   }
@@ -19,6 +21,7 @@ namespace NTR20Z.Models
     public int subjectID {get;set;}
     public string name {get;set;}
     public string comment{get;set;}
+    public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
   }
 
@@ -27,6 +30,7 @@ namespace NTR20Z.Models
     public int classgroupID{get;set;}
     public string name{get;set;}
     public string comment{get;set;}
+    public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
   }
 
@@ -35,6 +39,7 @@ namespace NTR20Z.Models
     public int roomID{get;set;}
     public string name {get;set;}
     public string comment{get;set;}
+    public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
   }
 
@@ -43,6 +48,7 @@ namespace NTR20Z.Models
     public int slotID{get;set;}
     public string name {get;set;}
     public string comment {get;set;}
+    public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
   }
 
@@ -54,5 +60,6 @@ namespace NTR20Z.Models
     public virtual Classgroup Classgroup {get;set;}
     public virtual Room Room {get;set;}
     public virtual Slot Slot {get;set;}
+    public DateTime TimeStamp {get;set;}
   }
 }

@@ -19,6 +19,7 @@ namespace NTR20Z.Models
         public string chosenTeacher { get; set; }
         public string chosenGroup { get; set; }
         public string chosenRoom { get; set; }
+        public string chosenSubject {get;set;}
         public int selectedButton { get; set; }
         public int slotToCheck { get; set; }
 
@@ -154,7 +155,7 @@ namespace NTR20Z.Models
 
             using (var context = new LibraryContext())
             {
-                var sub = context.Classgroup;
+                var sub = context.Subject;
 
                 foreach (var s in sub)
                 {
@@ -234,6 +235,24 @@ namespace NTR20Z.Models
 
                 var groupBis = groups.Single();
                 context.Classgroup.Remove(groupBis);
+                context.SaveChanges();
+            }
+        }
+
+        public void removeSubject(string nameToDelete)
+        {
+            for (int i =0; i < activities.Count; i++)
+            {
+                if (activities[i].subject == nameToDelete)
+                    return;
+            }
+            
+            using(var context = new LibraryContext())
+            {
+                var subjects = from g in context.Subject where g.name == nameToDelete select g;
+
+                var subjectBis = subjects.Single();
+                context.Subject.Remove(subjectBis);
                 context.SaveChanges();
             }
         }
@@ -331,6 +350,7 @@ namespace NTR20Z.Models
                         activityTer.Room = r;
                 }
 
+                activityTer.TimeStamp = DateTime.Now;
                 context.SaveChanges();
             }
         }
@@ -396,6 +416,7 @@ namespace NTR20Z.Models
                     activityBis.Slot = slot;
                 }
 
+                activityBis.TimeStamp = DateTime.Now;
                 context.ActivityBis.Add(activityBis);
                 context.SaveChanges();
             }
@@ -409,19 +430,19 @@ namespace NTR20Z.Models
                 // Creates the database if not exists
                 context.Database.EnsureCreated();
 
+                Teacher teacherBis = new Teacher();
+                teacherBis.comment = " ";
+                teacherBis.TimeStamp = DateTime.Now;
+
                 if( te != null)
                 {
-                    Teacher teacherBis = new Teacher();
                     teacherBis.name = te;
-                    teacherBis.comment = " ";
                     context.Teacher.Add(teacherBis);
                     context.SaveChanges();
                 }
                 else 
                 {
-                    Teacher teacherBis = new Teacher();
                     teacherBis.name = " ";
-                    teacherBis.comment = " ";
                     context.Teacher.Add(teacherBis);
                     context.SaveChanges();
                 }
@@ -437,10 +458,21 @@ namespace NTR20Z.Models
                 context.Database.EnsureCreated();
 
                 Classgroup classGroupBis = new Classgroup();
-                classGroupBis.name = gr;
                 classGroupBis.comment = " ";
-                context.Classgroup.Add(classGroupBis);
-                context.SaveChanges();
+                classGroupBis.TimeStamp = DateTime.Now;
+
+                if (gr != null)
+                {
+                    classGroupBis.name = gr;
+                    context.Classgroup.Add(classGroupBis);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    classGroupBis.name = " ";
+                    context.Classgroup.Add(classGroupBis);
+                    context.SaveChanges();
+                }           
             }
         }
 
@@ -452,10 +484,49 @@ namespace NTR20Z.Models
                 context.Database.EnsureCreated();
 
                 Room roomBis = new Room();
-                roomBis.name = cl;
                 roomBis.comment = " ";
-                context.Room.Add(roomBis);
-                context.SaveChanges();
+                roomBis.TimeStamp = DateTime.Now;
+
+                if (cl != null)
+                {                   
+                    roomBis.name = cl;
+                    context.Room.Add(roomBis);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    roomBis.name = " ";
+                    context.Room.Add(roomBis);
+                    context.SaveChanges();
+                }
+                
+            }
+        }
+
+        public void InsertSubject(string cl)
+        {
+            using (var context = new LibraryContext())
+            {
+                // Creates the database if not exists
+                context.Database.EnsureCreated();
+
+                Subject subjectBis = new Subject();
+                subjectBis.comment = " ";
+                subjectBis.TimeStamp = DateTime.Now;
+
+                if ( cl != null)
+                {
+                    subjectBis.name = cl;
+                    context.Subject.Add(subjectBis);
+                    context.SaveChanges();
+                }
+                else 
+                {
+                    subjectBis.name = " ";
+                    context.Subject.Add(subjectBis);
+                    context.SaveChanges();
+                }
+                
             }
         }
 

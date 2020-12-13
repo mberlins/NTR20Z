@@ -87,3 +87,5 @@
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/EditWindow.cshtml.g.cs
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/RemoveGroup.cshtml.g.cs
 /home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/RemoveRoom.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/AddSubject.cshtml.g.cs
+/home/mich/Pulpit/NTR20Z/obj/Debug/netcoreapp3.1/Razor/Views/Home/RemoveSubject.cshtml.g.cs
