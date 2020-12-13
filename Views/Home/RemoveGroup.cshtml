@@ -1,0 +1,26 @@
+@using NTR20Z.Models
+
+@model Reader 
+
+@{
+    ViewData["Title"] = "Usuwanie klasy";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Ekran usuwania klasy</h1>
+    
+</div>
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
+
+    <div>
+        @Html.LabelFor(model=>model.groups)
+        @Html.DropDownListFor(Model=>Model.chosenGroup, new SelectList(Model.groups), "Select group", new {htmlAtributes = new {@class = "form-control"}})
+    </div>
+
+    <button class="btn btn-danger" 
+    onclick="location.href='@Url.Action("RemoveGroup", "Home", new { id = Model.chosenGroup})'">Usuń klasę</button>
+}

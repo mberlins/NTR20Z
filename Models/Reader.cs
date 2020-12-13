@@ -40,7 +40,7 @@ namespace NTR20Z.Models
 
         public List<SingleActivity> activities { get; set; }
 
-        public Reader()
+        /*public Reader()
         {
             teachers = new List<string>();
             groups = new List<string>();
@@ -98,11 +98,108 @@ namespace NTR20Z.Models
                     Console.WriteLine(t.Classgroup.name);
                 }
             }
+        }*/
+
+        public void ReadTeachers()
+        {
+            teachers = new List<string>();
+
+            using (var context = new LibraryContext())
+            {
+                var teach = context.Teacher;
+
+                foreach (var t in teach)
+                {
+                    string tmp = t.name;
+                    teachers.Add(tmp);
+                }
+            }
         }
 
-        public void removeActivity(int index)
+        public void ReadRooms()
         {
-            activities.RemoveAt(index);
+            rooms = new List<string>();
+
+            using (var context = new LibraryContext())
+            {
+                var rm = context.Room;
+
+                foreach (var r in rm)
+                {
+                    string tmp = r.name;
+                    rooms.Add(tmp);
+                }
+            }
+        }
+
+        public void ReadGroups()
+        {
+            groups = new List<string>();
+
+            using (var context = new LibraryContext())
+            {
+                var gr = context.Classgroup;
+
+                foreach (var g in gr)
+                {
+                    string tmp = g.name;
+                    groups.Add(tmp);
+                }
+            }
+        }
+
+        public void ReadSubjects()
+        {
+            subjects = new List<string>();
+
+            using (var context = new LibraryContext())
+            {
+                var sub = context.Classgroup;
+
+                foreach (var s in sub)
+                {
+                    string tmp = s.name;
+                    subjects.Add(tmp);
+                }
+            }
+        }
+
+        public void ReadActivities()
+        {
+            activities = new List<SingleActivity>();
+
+            using (var context = new LibraryContext())
+            {
+                var activitiess = context.ActivityBis.Include(s => s.Slot).Include(r => r.Room).Include(t => t.Teacher)
+                                                    .Include(x => x.Subject).Include(c => c.Classgroup);
+
+                foreach (var t in activitiess)
+                {
+                    SingleActivity acti = new SingleActivity();
+                    acti.slot = Int32.Parse(t.Slot.name);
+
+                    acti.subject = t.Subject.name;
+                    acti.teacher = t.Teacher.name;
+                    acti.room = t.Room.name;
+                    acti.group = t.Classgroup.name;
+                    
+                    activities.Add(acti);
+                }
+            }
+        }
+
+        public void removeActivity(int id)
+        {
+            string te = activities[id].teacher;
+            string sl = activities[id].slot.ToString();
+
+            using(var context = new LibraryContext())
+            {
+                var activitiesBis = from a in context.ActivityBis where (a.Teacher.name == te && a.Slot.name == sl) select a;
+                var activityTer = activitiesBis.Single();
+                context.ActivityBis.Remove(activityTer);
+                context.SaveChanges();
+            }
         }
 
         public void removeTeacher(string nameToDelete)
@@ -123,52 +220,40 @@ namespace NTR20Z.Models
             }
         }
 
-        public void removeGroup(string name)
+        public void removeGroup(string nameToDelete)
         {
-            int index = 1;
-
-            for (int i = 0; i < groups.Count; i++)
+            for (int i =0; i < activities.Count; i++)
             {
-                if (groups[i] == name)
-                {
-                    index = i;
-                    break;
-                }
+                if (activities[i].group == nameToDelete)
+                    return;
             }
-
-            groups.RemoveAt(index);
-
-            for (int i = 0; i < activities.Count; i++)
+            
+            using(var context = new LibraryContext())
             {
+                var groups = from g in context.Classgroup where g.name == nameToDelete select g;
 
-                if (activities[i].group == name)
-                    activities[i].group = "Brak";
+                var groupBis = groups.Single();
+                context.Classgroup.Remove(groupBis);
+                context.SaveChanges();
             }
-
         }
 
-        public void removeRoom(string name)
+        public void removeRoom(string nameToDelete)
         {
-            int index = 1;
-
-            for (int i = 0; i < rooms.Count; i++)
+            for (int i =0; i < activities.Count; i++)
             {
-                if (rooms[i] == name)
-                {
-                    index = i;
-                    break;
-                }
+                if (activities[i].room == nameToDelete)
+                    return;
             }
-
-            rooms.RemoveAt(index);
-
-            for (int i = 0; i < activities.Count; i++)
+            
+            using(var context = new LibraryContext())
             {
+                var rooms = from r in context.Room where r.name == nameToDelete select r;
 
-                if (activities[i].room == name)
-                    activities[i].room = "Brak";
+                var roomBis = rooms.Single();
+                context.Room.Remove(roomBis);
+                context.SaveChanges();
             }
-
         }
 
         public void checkAvailibility(int slotToCheck)
@@ -203,11 +288,11 @@ namespace NTR20Z.Models
 
         public void editActivity(SingleActivity acti, int id)
         {
-            //string te = activities[id].teacher;
-            //string sl = activities[id].slot.ToString();
+            string te = activities[id].teacher;
+            string sl = activities[id].slot.ToString();
 
-            string te = "Zbyszek";
-            string sl = "13";
+            //string te = "Zbyszek";
+            //string sl = "13";
 
             using (var context = new LibraryContext())
             {
@@ -373,5 +458,7 @@ namespace NTR20Z.Models
                 context.SaveChanges();
             }
         }
+
+        
     }
 }

@@ -15,6 +15,7 @@ namespace NTR20Z.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         public Reader myJsonObject{get; set;}
+        int checkBis = 0;
         public HomeController(ILogger<HomeController> logger)
         {
             myJsonObject = new Reader();
@@ -37,16 +38,22 @@ namespace NTR20Z.Controllers
 
         public IActionResult Teacher()
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadTeachers();
             return View(myJsonObject);
         }
 
         public IActionResult Group()
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
             return View(myJsonObject);
         }
 
         public IActionResult Classroom()
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadRooms();
             return View(myJsonObject);
         }
 
@@ -58,20 +65,20 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult AddActivity(Reader check)
         {
-            myJsonObject.slotToCheck = check.newActivity.slot;
-            //string jsonString;
-            //jsonString = JsonSerializer.Serialize(myJsonObject);
-            //System.IO.File.WriteAllText("text.json", jsonString);
-            
+            //myJsonObject.slotToCheck = check.newActivity.slot;
+            checkBis = check.newActivity.slot;
             return RedirectToAction("AddActivityBis");
         }
 
         public IActionResult AddActivityBis()
         {   
-            myJsonObject.checkAvailibility(myJsonObject.slotToCheck);
-            //string jsonString;
-            //jsonString = JsonSerializer.Serialize(myJsonObject);
-            //System.IO.File.WriteAllText("text.json", jsonString);
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadGroups();
+            myJsonObject.ReadRooms();
+            myJsonObject.ReadSubjects();
+            myJsonObject.ReadTeachers();
+
+            myJsonObject.checkAvailibility(checkBis);
 
             return View(myJsonObject);
         }
@@ -129,9 +136,7 @@ namespace NTR20Z.Controllers
         {
             ViewData["lessonToEditIndex"] = id; 
             myJsonObject.checkAvailibility(myJsonObject.activities[id].slot);
-            int check = id;
-            //string plik = System.IO.File.ReadAllText(@"text.json");
-            //myJsonObject = JsonSerializer.Deserialize<Reader>(plik);
+            //int check = id;
             myJsonObject.selectedButton = id;
 
             return View(myJsonObject);
@@ -141,26 +146,18 @@ namespace NTR20Z.Controllers
         public IActionResult EditWindowBis(Reader check,  int id)
         {
             myJsonObject.editActivity(check.editedActivity, id);
-            /*myJsonObject.activities[id].room = check.editedActivity.room;
-            myJsonObject.activities[id].group = check.editedActivity.group;
-            myJsonObject.activities[id].subject = check.editedActivity.subject;
-            myJsonObject.activities[id].teacher = check.editedActivity.teacher;
-            myJsonObject.selectedButton = id;*/
 
             return RedirectToAction("Index");
         }
-        /*
+        
         [HttpPost]
         public IActionResult DeleteActivity(int id)
         {
             myJsonObject.selectedButton = id;
-            //myJsonObject.activities.RemoveAt(id);
             myJsonObject.removeActivity(id);
-            string jsonString;
-            jsonString = JsonSerializer.Serialize(myJsonObject);
-            System.IO.File.WriteAllText("text.json", jsonString);
+            
             return RedirectToAction("Teacher");
-        }*/
+        }
 
         
         public IActionResult RemoveTeacher()
@@ -175,7 +172,7 @@ namespace NTR20Z.Controllers
             return RedirectToAction("Index");
         }
 
-        /*public IActionResult RemoveGroup()
+        public IActionResult RemoveGroup()
         {
             return View(myJsonObject);
         }
@@ -183,12 +180,8 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult RemoveGroup(Reader check, string id)
         {
-            myJsonObject.chosenGroup = check.chosenGroup;
-            myJsonObject.removeGroup(myJsonObject.chosenGroup);
-            string jsonString;
-            jsonString = JsonSerializer.Serialize(myJsonObject);
-            System.IO.File.WriteAllText("text.json", jsonString);
-            return View(myJsonObject);
+            myJsonObject.removeGroup(check.chosenGroup);
+            return RedirectToAction("Index");
         }
 
         public IActionResult RemoveRoom()
@@ -199,13 +192,9 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult RemoveRoom(Reader check, string id)
         {
-            myJsonObject.chosenRoom = check.chosenRoom;
-            myJsonObject.removeRoom(myJsonObject.chosenRoom);
-            string jsonString;
-            jsonString = JsonSerializer.Serialize(myJsonObject);
-            System.IO.File.WriteAllText("text.json", jsonString);
-            return View(myJsonObject);
-        }*/
+            myJsonObject.removeRoom(check.chosenRoom);
+            return RedirectToAction("Index");
+        }
         
         [HttpPost]
         public IActionResult Classroom(Reader myJsonObject)
@@ -222,6 +211,8 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult Teacher(Reader myJsonObject)
         {
+            myJsonObject.ReadActivities();
+            myJsonObject.ReadTeachers();
             return View(myJsonObject);
         }
         

@@ -14407,6 +14407,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/RemoveGroup.cshtml",
+      "TargetPath": "Views\\Home\\RemoveGroup.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/Classroom.cshtml",
       "TargetPath": "Views\\Home\\Classroom.cshtml",
       "FileKind": "mvc"
@@ -14439,6 +14444,11 @@
     {
       "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "/home/mich/Pulpit/NTR20Z/Views/Home/RemoveRoom.cshtml",
+      "TargetPath": "Views\\Home\\RemoveRoom.cshtml",
       "FileKind": "mvc"
     },
     {

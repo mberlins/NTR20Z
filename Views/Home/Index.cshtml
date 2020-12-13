@@ -35,7 +35,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
 
-    <button type="submit" class="btn btn-primary">Usuń klasę</button>
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("RemoveGroup", "Home")';return false;">Usuń grupę</button>
 }
 
 @using(Html.BeginForm("AddGroup", "Home"))
@@ -52,7 +53,8 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "nie dziala", new{@class = "text-danger"})
 
-    <button type="submit" class="btn btn-primary">Usuń salę</button>
+    <button class="btn btn-primary"
+    onclick="location.href='@Url.Action("RemoveRoom", "Home")';return false;">Usuń salę</button>
 }
 
 @using(Html.BeginForm("AddRoom", "Home"))
