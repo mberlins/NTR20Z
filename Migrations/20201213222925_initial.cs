@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace NTR20Z.Migrations
@@ -14,9 +13,8 @@ namespace NTR20Z.Migrations
                 {
                     classgroupID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(nullable: false),
-                    comment = table.Column<string>(nullable: false),
-                    TimeStamp = table.Column<DateTime>(nullable: false)
+                    name = table.Column<string>(type: "varchar(30)", nullable: false),
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +27,8 @@ namespace NTR20Z.Migrations
                 {
                     roomID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(nullable: false),
-                    comment = table.Column<string>(nullable: false),
-                    TimeStamp = table.Column<DateTime>(nullable: false)
+                    name = table.Column<string>(type: "varchar(30)", nullable: false),
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,9 +41,8 @@ namespace NTR20Z.Migrations
                 {
                     slotID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(nullable: false),
-                    comment = table.Column<string>(nullable: false),
-                    TimeStamp = table.Column<DateTime>(nullable: false)
+                    name = table.Column<string>(type: "varchar(30)", nullable: false),
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -59,9 +55,8 @@ namespace NTR20Z.Migrations
                 {
                     subjectID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(nullable: false),
-                    comment = table.Column<string>(nullable: false),
-                    TimeStamp = table.Column<DateTime>(nullable: false)
+                    name = table.Column<string>(type: "varchar(30)", nullable: false),
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,9 +69,8 @@ namespace NTR20Z.Migrations
                 {
                     teacherID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
-                    name = table.Column<string>(nullable: false),
-                    comment = table.Column<string>(nullable: false),
-                    TimeStamp = table.Column<DateTime>(nullable: false)
+                    name = table.Column<string>(type: "varchar(30)", nullable: false),
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,8 +87,7 @@ namespace NTR20Z.Migrations
                     subjectID = table.Column<int>(nullable: true),
                     classgroupID = table.Column<int>(nullable: true),
                     roomID = table.Column<int>(nullable: true),
-                    slotID = table.Column<int>(nullable: true),
-                    TimeStamp = table.Column<DateTime>(nullable: false)
+                    slotID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

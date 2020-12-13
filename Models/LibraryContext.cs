@@ -14,7 +14,7 @@ namespace NTR20Z.Models
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-      optionsBuilder.UseMySQL("server=localhost;database=TestDb;user=root;password=Kaloryfer1");
+      optionsBuilder.UseMySQL("server=localhost;database=NTR2020Z;user=root;password=Kaloryfer1");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

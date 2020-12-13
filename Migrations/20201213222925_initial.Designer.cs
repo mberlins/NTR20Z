@@ -9,7 +9,7 @@ using NTR20Z.Models;
 namespace NTR20Z.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20201213130105_initial")]
+    [Migration("20201213222925_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,9 +24,6 @@ namespace NTR20Z.Migrations
                     b.Property<int>("activityID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime");
 
                     b.Property<int?>("classgroupID")
                         .HasColumnType("int");
@@ -64,16 +61,13 @@ namespace NTR20Z.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("classgroupID");
 
@@ -86,16 +80,13 @@ namespace NTR20Z.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("roomID");
 
@@ -108,16 +99,13 @@ namespace NTR20Z.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("slotID");
 
@@ -130,16 +118,13 @@ namespace NTR20Z.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("subjectID");
 
@@ -152,16 +137,13 @@ namespace NTR20Z.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("datetime");
-
                     b.Property<string>("comment")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(4000)");
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("teacherID");
 

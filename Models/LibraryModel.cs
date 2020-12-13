@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Windows;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NTR20Z.Models
 {
   public class Teacher
   {
     public int teacherID{get;set;}
-    //[Column(TypeName = "varchar(MAX)")]
-    //[MaxLength(30)]
+    [Column(TypeName = "varchar(30)")]
     public string name {get;set;}
+    [Column(TypeName = "varchar(4000)")]
     public string comment {get;set;}
     public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
@@ -19,7 +20,9 @@ namespace NTR20Z.Models
   public class Subject
   {
     public int subjectID {get;set;}
+    [Column(TypeName = "varchar(30)")]
     public string name {get;set;}
+    [Column(TypeName = "varchar(4000)")]
     public string comment{get;set;}
     public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
@@ -28,7 +31,9 @@ namespace NTR20Z.Models
   public class Classgroup
   {
     public int classgroupID{get;set;}
+    [Column(TypeName = "varchar(30)")]
     public string name{get;set;}
+    [Column(TypeName = "varchar(4000)")]
     public string comment{get;set;}
     public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
@@ -37,7 +42,9 @@ namespace NTR20Z.Models
   public class Room
   {
     public int roomID{get;set;}
+    [Column(TypeName = "varchar(30)")]
     public string name {get;set;}
+    [Column(TypeName = "varchar(4000)")]
     public string comment{get;set;}
     public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
@@ -46,7 +53,9 @@ namespace NTR20Z.Models
   public class Slot
   {
     public int slotID{get;set;}
+    [Column(TypeName = "varchar(30)")]
     public string name {get;set;}
+    [Column(TypeName = "varchar(4000)")]
     public string comment {get;set;}
     public DateTime TimeStamp {get;set;}
     public ICollection<ActivityBis> Activities{get;set;}
