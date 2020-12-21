@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using NTR20Z.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace NTR20Z.Controllers
 {
@@ -38,6 +39,7 @@ namespace NTR20Z.Controllers
 
         public IActionResult Teacher()
         {
+            ViewBag.Warning1 = TempData["Warning1"];
             myJsonObject.ReadActivities();
             myJsonObject.ReadTeachers();
             return View(myJsonObject);
@@ -84,12 +86,17 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddActivityBis(Reader check)
+        public async Task<IActionResult> AddActivityBis(Reader check)
         {
             //myJsonObject.activities.Add(check.newActivity);
-            myJsonObject.InsertActivity(check.newActivity);
-
-            return RedirectToAction("Index");
+            try {
+            await myJsonObject.InsertActivity(check.newActivity);
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                TempData["Warning1"] = 1;
+            }
+            return RedirectToAction("Teacher");
         }
         
 
@@ -267,6 +274,7 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult Teacher(Reader myJsonObject)
         {
+            ViewBag.Warning1 = TempData["Warning1"];
             myJsonObject.ReadActivities();
             myJsonObject.ReadTeachers();
             return View(myJsonObject);

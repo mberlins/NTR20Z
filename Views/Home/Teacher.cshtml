@@ -17,6 +17,14 @@
     
 </div>
 
+@if (ViewBag.Warning1 == 1)
+{
+    <div class ="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Nie udało się dodać aktywności</strong>
+    </div>
+}
+
 @using(Html.BeginForm())
 {
     @Html.AntiForgeryToken()

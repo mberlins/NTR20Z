@@ -355,7 +355,7 @@ namespace NTR20Z.Models
             }
         }
 
-        public void InsertActivity(SingleActivity act)
+        public async Task InsertActivity(SingleActivity act)
         {
             using (var context = new LibraryContext())
             {
@@ -372,37 +372,37 @@ namespace NTR20Z.Models
 
 
 
-                ActivityBis activityBis = new ActivityBis();
+                ActivityBis newActivityBis = new ActivityBis();
 
                 foreach (var s in subs)
                 {
                     if (s.name == act.subject)
-                        activityBis.Subject = s;
+                        newActivityBis.Subject = s;
                 }
 
                 foreach (var t in teach)
                 {
                     if (t.name == act.teacher)
-                        activityBis.Teacher = t;
+                        newActivityBis.Teacher = t;
                 }
 
                 foreach (var g in groupss)
                 {
                     if (g.name == act.group)
-                        activityBis.Classgroup = g;
+                        newActivityBis.Classgroup = g;
                 }
 
                 foreach (var r in roomss)
                 {
                     if (r.name == act.room)
-                        activityBis.Room = r;
+                        newActivityBis.Room = r;
                 }
 
                 foreach (var s in slotss)
                 {
                     if (s.name == act.slot.ToString())
                     {
-                        activityBis.Slot = s;
+                        newActivityBis.Slot = s;
                         checkBis = 1;
                     }
                 }
@@ -413,12 +413,19 @@ namespace NTR20Z.Models
                     slot.name = act.slot.ToString();
                     slot.comment = " ";
                     context.Slot.Add(slot);
-                    activityBis.Slot = slot;
+                    newActivityBis.Slot = slot;
                 }
 
-                activityBis.TimeStamp = DateTime.Now;
-                context.ActivityBis.Add(activityBis);
-                context.SaveChanges();
+                foreach(var a in activitiess)
+                {
+                    if ( a.Slot.name == newActivityBis.Slot.name && (a.Teacher.name == newActivityBis.Teacher.name ||
+                    a.Room.name == newActivityBis.Room.name || a.Classgroup.name == newActivityBis.Classgroup.name))
+                        throw new DbUpdateConcurrencyException();
+                }
+
+                newActivityBis.TimeStamp = DateTime.Now;
+                await context.ActivityBis.AddAsync(newActivityBis);
+                await context.SaveChangesAsync();
             }
         }
 
