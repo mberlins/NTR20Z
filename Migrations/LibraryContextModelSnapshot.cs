@@ -75,6 +75,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("classgroupID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Classgroup");
                 });
 
@@ -96,6 +99,9 @@ namespace NTR20Z.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.HasKey("roomID");
+
+                    b.HasIndex("name")
+                        .IsUnique();
 
                     b.ToTable("Room");
                 });
@@ -119,6 +125,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("slotID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Slot");
                 });
 
@@ -141,6 +150,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("subjectID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Subject");
                 });
 
@@ -162,6 +174,9 @@ namespace NTR20Z.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.HasKey("teacherID");
+
+                    b.HasIndex("name")
+                        .IsUnique();
 
                     b.ToTable("Teacher");
                 });

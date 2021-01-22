@@ -25,6 +25,7 @@ namespace NTR20Z.Models
       {
         entity.HasKey(e => e.teacherID);
         entity.Property(e => e.name).IsRequired();
+        entity.HasIndex(e => e.name).IsUnique();
         entity.Property(e => e.comment).IsRequired();
         entity.Property(e => e.TimeStamp);
       });
@@ -33,6 +34,7 @@ namespace NTR20Z.Models
       {
         entity.HasKey(e => e.subjectID);
         entity.Property(e => e.name).IsRequired();
+        entity.HasIndex(e => e.name).IsUnique();
         entity.Property(e => e.comment).IsRequired();
         entity.Property(e => e.TimeStamp);
       });
@@ -41,6 +43,7 @@ namespace NTR20Z.Models
       {
         entity.HasKey(e => e.classgroupID);
         entity.Property(e => e.name).IsRequired();
+        entity.HasIndex(e => e.name).IsUnique();
         entity.Property(e => e.comment).IsRequired();
         entity.Property(e => e.TimeStamp);
       });
@@ -49,6 +52,7 @@ namespace NTR20Z.Models
       {
         entity.HasKey(e => e.roomID);
         entity.Property(e => e.name).IsRequired();
+        entity.HasIndex(e => e.name).IsUnique();
         entity.Property(e => e.comment).IsRequired();
         entity.Property(e => e.TimeStamp);
       });
@@ -57,6 +61,7 @@ namespace NTR20Z.Models
       {
         entity.HasKey(e => e.slotID);
         entity.Property(e => e.name).IsRequired();
+        entity.HasIndex(e => e.name).IsUnique();
         entity.Property(e => e.comment).IsRequired();
         entity.Property(e => e.TimeStamp);
       });

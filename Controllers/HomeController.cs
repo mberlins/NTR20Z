@@ -9,6 +9,7 @@ using NTR20Z.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using NTR20Z.Exceptions;
 
 namespace NTR20Z.Controllers
 {
@@ -29,6 +30,7 @@ namespace NTR20Z.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Warning1 = TempData["message"];
             return View();
         }
 
@@ -39,7 +41,7 @@ namespace NTR20Z.Controllers
 
         public IActionResult Teacher()
         {
-            ViewBag.Warning1 = TempData["Warning1"];
+            ViewBag.Warning1 = TempData["message"];
             myJsonObject.ReadActivities();
             myJsonObject.ReadTeachers();
             return View(myJsonObject);
@@ -94,7 +96,11 @@ namespace NTR20Z.Controllers
             }
             catch(DbUpdateConcurrencyException)
             {
-                TempData["Warning1"] = 1;
+                TempData["message"] = 1;        // już istnieje takie activity
+            }
+            catch(ElementNotFoundException)
+            {
+                TempData["message"] = 2;
             }
             return RedirectToAction("Teacher");
         }
@@ -106,10 +112,14 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddTeacher(Reader check, string id)
+        public async Task<IActionResult> AddTeacher(Reader check, string id)
         {
             myJsonObject.chosenTeacher = check.chosenTeacher;
-            myJsonObject.InsertTeacher(check.chosenTeacher);
+            if (await myJsonObject.InsertTeacher(check.chosenTeacher) == -1)
+                TempData["message"] = 1;
+            else
+                TempData["message"] = 4;
+
             return RedirectToAction("Index");
         }
 
@@ -119,10 +129,14 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddGroup(Reader check, string id)
+        public async Task<IActionResult> AddGroup(Reader check, string id)
         {
             myJsonObject.chosenGroup = check.chosenGroup;
-            myJsonObject.InsertGroup(check.chosenGroup);
+            if (await myJsonObject.InsertGroup(check.chosenGroup) == -1)
+                TempData["message"] = 1;
+            else
+                TempData["message"] = 4;
+
             return RedirectToAction("Index");
         }
 
@@ -132,10 +146,14 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRoom(Reader check, string id)
+        public async Task<IActionResult> AddRoom(Reader check, string id)
         {
             myJsonObject.chosenRoom = check.chosenRoom;
-            myJsonObject.InsertRoom(myJsonObject.chosenRoom);
+            if (await myJsonObject.InsertRoom(check.chosenRoom) == -1)
+                TempData["message"] = 1;
+            else
+                TempData["message"] = 4;
+
             return RedirectToAction("Index");
         }
 
@@ -145,10 +163,14 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddSubject(Reader check, string id)
+        public async Task<IActionResult> AddSubject(Reader check, string id)
         {
             myJsonObject.chosenSubject = check.chosenSubject;
-            myJsonObject.InsertSubject(myJsonObject.chosenSubject);
+            if (await myJsonObject.InsertSubject(check.chosenSubject) == -1)
+                TempData["message"] = 1;
+            else
+                TempData["message"] = 4;
+
             return RedirectToAction("Index");
         }
 
@@ -168,24 +190,40 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditWindowBis(Reader check,  int id)
+        public async Task<IActionResult> EditWindowBis(Reader check,  int id)
         {
             myJsonObject.ReadActivities();
             myJsonObject.ReadGroups();
             myJsonObject.ReadRooms();
             myJsonObject.ReadTeachers();
             myJsonObject.ReadSubjects();
-            myJsonObject.editActivity(check.editedActivity, id);
 
+            try
+            {
+                await myJsonObject.editActivity(check.editedActivity, id);
+            }
+            catch
+            {
+                TempData["message"] = 2;
+            }
+            
             return RedirectToAction("Index");
         }
         
         [HttpPost]
-        public IActionResult DeleteActivity(int id)
+        public async Task<IActionResult> DeleteActivity(int id)
         {
             myJsonObject.ReadActivities();
             myJsonObject.selectedButton = id;
-            myJsonObject.removeActivity(id);
+
+            try
+            {
+                await myJsonObject.removeActivity(id);
+            }
+            catch
+            {
+                TempData["Message"] = 2;
+            }
             
             return RedirectToAction("Teacher");
         }
@@ -199,11 +237,21 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveTeacher(Reader check, string id)
+        public async Task<IActionResult> RemoveTeacher(Reader check, string id)
         {
             myJsonObject.ReadActivities();
             myJsonObject.ReadTeachers();
-            myJsonObject.removeTeacher(check.chosenTeacher);
+            try
+            {
+                int inf = await myJsonObject.removeTeacher(check.chosenTeacher);
+                if (inf == -1)
+                    TempData["message"] = -1;
+            }
+            catch (ElementNotFoundException)
+            {
+                TempData["message"] = 2;
+            }
+            
             return RedirectToAction("Index");
         }
 
@@ -215,11 +263,21 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveGroup(Reader check, string id)
+        public async Task<IActionResult> RemoveGroup(Reader check, string id)
         {
             myJsonObject.ReadActivities();
             myJsonObject.ReadGroups();
-            myJsonObject.removeGroup(check.chosenGroup);
+            try
+            {
+                int inf = await myJsonObject.removeGroup(check.chosenGroup);
+                if (inf == -1)
+                    TempData["message"] = -1;
+            }
+            catch (ElementNotFoundException)
+            {
+                TempData["message"] = 2;
+            }
+            
             return RedirectToAction("Index");
         }
 
@@ -231,11 +289,21 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveRoom(Reader check, string id)
+        public async Task<IActionResult> RemoveRoom(Reader check, string id)
         {
             myJsonObject.ReadActivities();
             myJsonObject.ReadRooms();
-            myJsonObject.removeRoom(check.chosenRoom);
+            try
+            {
+                int inf = await myJsonObject.removeRoom(check.chosenRoom);
+                if (inf == -1)
+                    TempData["message"] = -1;
+            }
+            catch (ElementNotFoundException)
+            {
+                TempData["message"] = 2;
+            }
+            
             return RedirectToAction("Index");
         }
 
@@ -247,11 +315,21 @@ namespace NTR20Z.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveSubject(Reader check, string id)
+        public async Task<IActionResult> RemoveSubject(Reader check, string id)
         {
             myJsonObject.ReadActivities();
             myJsonObject.ReadSubjects();
-            myJsonObject.removeSubject(check.chosenSubject);
+            try
+            {
+                int inf = await myJsonObject.removeSubject(check.chosenSubject);
+                if (inf == -1)
+                    TempData["message"] = -1;
+            }
+            catch (ElementNotFoundException)
+            {
+                TempData["message"] = 2;
+            }
+            
             return RedirectToAction("Index");
         }
         
@@ -274,7 +352,7 @@ namespace NTR20Z.Controllers
         [HttpPost]
         public IActionResult Teacher(Reader myJsonObject)
         {
-            ViewBag.Warning1 = TempData["Warning1"];
+            ViewBag.Warning1 = TempData["message"];
             myJsonObject.ReadActivities();
             myJsonObject.ReadTeachers();
             return View(myJsonObject);

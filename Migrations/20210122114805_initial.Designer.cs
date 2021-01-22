@@ -9,7 +9,7 @@ using NTR20Z.Models;
 namespace NTR20Z.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20201213222925_initial")]
+    [Migration("20210122114805_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,9 @@ namespace NTR20Z.Migrations
                     b.Property<int>("activityID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime");
 
                     b.Property<int?>("classgroupID")
                         .HasColumnType("int");
@@ -61,6 +64,9 @@ namespace NTR20Z.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime");
+
                     b.Property<string>("comment")
                         .IsRequired()
                         .HasColumnType("varchar(4000)");
@@ -71,6 +77,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("classgroupID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Classgroup");
                 });
 
@@ -79,6 +88,9 @@ namespace NTR20Z.Migrations
                     b.Property<int>("roomID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("comment")
                         .IsRequired()
@@ -90,6 +102,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("roomID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Room");
                 });
 
@@ -98,6 +113,9 @@ namespace NTR20Z.Migrations
                     b.Property<int>("slotID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("comment")
                         .IsRequired()
@@ -109,6 +127,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("slotID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Slot");
                 });
 
@@ -117,6 +138,9 @@ namespace NTR20Z.Migrations
                     b.Property<int>("subjectID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("comment")
                         .IsRequired()
@@ -128,6 +152,9 @@ namespace NTR20Z.Migrations
 
                     b.HasKey("subjectID");
 
+                    b.HasIndex("name")
+                        .IsUnique();
+
                     b.ToTable("Subject");
                 });
 
@@ -136,6 +163,9 @@ namespace NTR20Z.Migrations
                     b.Property<int>("teacherID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime");
 
                     b.Property<string>("comment")
                         .IsRequired()
@@ -146,6 +176,9 @@ namespace NTR20Z.Migrations
                         .HasColumnType("varchar(30)");
 
                     b.HasKey("teacherID");
+
+                    b.HasIndex("name")
+                        .IsUnique();
 
                     b.ToTable("Teacher");
                 });

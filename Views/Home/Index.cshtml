@@ -83,3 +83,27 @@
     <button class="btn btn-primary"
     onclick="location.href='@Url.Action("AddSubject", "Home")';return false;">Dodaj przedmiot</button>
 }
+
+@if (ViewBag.Warning1 == 2)
+{
+    <div class ="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Błąd współbieżności</strong>
+    </div>
+}
+
+@if (ViewBag.Warning1 == -1)
+{
+    <div class ="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Element jest powiązany z aktywnymi zajęciami</strong>
+    </div>
+}
+
+@if (ViewBag.Warning1 == 1)
+{
+    <div class ="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Element o takiej nazwie jest już w bazie</strong>
+    </div>
+}

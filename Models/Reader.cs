@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using NTR20Z.Models;
+using NTR20Z.Exceptions;
 
 namespace NTR20Z.Models
 {
@@ -189,7 +190,7 @@ namespace NTR20Z.Models
             }
         }
 
-        public void removeActivity(int id)
+        public async Task removeActivity(int id)
         {
             string te = activities[id].teacher;
             string sl = activities[id].slot.ToString();
@@ -197,81 +198,109 @@ namespace NTR20Z.Models
             using(var context = new LibraryContext())
             {
                 var activitiesBis = from a in context.ActivityBis where (a.Teacher.name == te && a.Slot.name == sl) select a;
+                if (!activitiesBis.Any())
+                {
+                    throw new ElementNotFoundException();
+                }
+
                 var activityTer = activitiesBis.Single();
                 context.ActivityBis.Remove(activityTer);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
-        public void removeTeacher(string nameToDelete)
+        public async Task<int> removeTeacher(string nameToDelete)
         {
             for (int i =0; i < activities.Count; i++)
             {
                 if (activities[i].teacher == nameToDelete)
-                    return;
+                    return -1;      // teacher ma zajecia
             }
             
             using(var context = new LibraryContext())
             {
                 var teachers = from t in context.Teacher where t.name == nameToDelete select t;
 
+                if (!teachers.Any())
+                {
+                    throw new ElementNotFoundException();
+                }
+                
+
                 var teacher = teachers.Single();
                 context.Teacher.Remove(teacher);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return 0;
             }
         }
 
-        public void removeGroup(string nameToDelete)
+        public async Task<int> removeGroup(string nameToDelete)
         {
             for (int i =0; i < activities.Count; i++)
             {
                 if (activities[i].group == nameToDelete)
-                    return;
+                    return -1;      // grupa ma zajęcia
             }
             
             using(var context = new LibraryContext())
             {
                 var groups = from g in context.Classgroup where g.name == nameToDelete select g;
 
+                if (!groups.Any())
+                {
+                    throw new ElementNotFoundException();
+                }
+
                 var groupBis = groups.Single();
                 context.Classgroup.Remove(groupBis);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return 0;
             }
         }
 
-        public void removeSubject(string nameToDelete)
+        public async Task<int> removeSubject(string nameToDelete)
         {
             for (int i =0; i < activities.Count; i++)
             {
                 if (activities[i].subject == nameToDelete)
-                    return;
+                    return -1;
             }
             
             using(var context = new LibraryContext())
             {
                 var subjects = from g in context.Subject where g.name == nameToDelete select g;
+                if (!subjects.Any())
+                {
+                    throw new ElementNotFoundException();
+                }
 
                 var subjectBis = subjects.Single();
                 context.Subject.Remove(subjectBis);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return 0;
             }
         }
 
-        public void removeRoom(string nameToDelete)
+        public async Task<int> removeRoom(string nameToDelete)
         {
             for (int i =0; i < activities.Count; i++)
             {
                 if (activities[i].room == nameToDelete)
-                    return;
+                    return -1;
             }
             
             using(var context = new LibraryContext())
             {
                 var rooms = from r in context.Room where r.name == nameToDelete select r;
+                if (!rooms.Any())
+                {
+                    throw new ElementNotFoundException();
+                }
 
                 var roomBis = rooms.Single();
                 context.Room.Remove(roomBis);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return 0;
             }
         }
 
@@ -305,7 +334,7 @@ namespace NTR20Z.Models
             }
         }
 
-        public void editActivity(SingleActivity acti, int id)
+        public async Task<int> editActivity(SingleActivity acti, int id)
         {
             string te = activities[id].teacher;
             string sl = activities[id].slot.ToString();
@@ -324,34 +353,48 @@ namespace NTR20Z.Models
                                                         .Include(c => c.Classgroup).Include(s => s.Subject);
 
                 var ActivitiesBis = from a in activitiess where (a.Teacher.name == te && a.Slot.name == sl) select a;
+                if(!ActivitiesBis.Any())
+                    throw new ElementNotFoundException();
+
                 var activityTer = ActivitiesBis.Single();
+                
+
 
                 foreach (var s in subs)
                 {
                     if (s.name == acti.subject)
                         activityTer.Subject = s;
                 }
+                if (activityTer.Subject == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var t in teach)
                 {
                     if (t.name == acti.teacher)
                         activityTer.Teacher = t;
                 }
+                if (activityTer.Teacher == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var g in groupss)
                 {
                     if (g.name == acti.group)
                         activityTer.Classgroup = g;
                 }
+                if (activityTer.Classgroup == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var r in roomss)
                 {
                     if (r.name == acti.room)
                         activityTer.Room = r;
                 }
+                if (activityTer.Room == null)
+                    throw new ElementNotFoundException();
 
                 activityTer.TimeStamp = DateTime.Now;
-                context.SaveChanges();
+                await context.SaveChangesAsync();
+                return 0;
             }
         }
 
@@ -371,7 +414,6 @@ namespace NTR20Z.Models
                 var activitiess = context.ActivityBis.Include(p => p.Slot);
 
 
-
                 ActivityBis newActivityBis = new ActivityBis();
 
                 foreach (var s in subs)
@@ -379,24 +421,32 @@ namespace NTR20Z.Models
                     if (s.name == act.subject)
                         newActivityBis.Subject = s;
                 }
+                if (newActivityBis.Subject == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var t in teach)
                 {
                     if (t.name == act.teacher)
                         newActivityBis.Teacher = t;
                 }
+                if (newActivityBis.Teacher == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var g in groupss)
                 {
                     if (g.name == act.group)
                         newActivityBis.Classgroup = g;
                 }
+                if (newActivityBis.Classgroup == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var r in roomss)
                 {
                     if (r.name == act.room)
                         newActivityBis.Room = r;
                 }
+                if (newActivityBis.Room == null)
+                    throw new ElementNotFoundException();
 
                 foreach (var s in slotss)
                 {
@@ -404,6 +454,15 @@ namespace NTR20Z.Models
                     {
                         newActivityBis.Slot = s;
                         checkBis = 1;
+                    }
+                }
+
+                foreach (var t in activitiess)
+                {
+                    if ((t.Teacher.name == act.teacher || t.Room.name == act.room || t.Classgroup.name == act.group) 
+                        && (act.slot.ToString() == t.Slot.name))
+                    {
+                        throw new DbUpdateConcurrencyException();
                     }
                 }
 
@@ -416,13 +475,6 @@ namespace NTR20Z.Models
                     newActivityBis.Slot = slot;
                 }
 
-                foreach(var a in activitiess)
-                {
-                    if ( a.Slot.name == newActivityBis.Slot.name && (a.Teacher.name == newActivityBis.Teacher.name ||
-                    a.Room.name == newActivityBis.Room.name || a.Classgroup.name == newActivityBis.Classgroup.name))
-                        throw new DbUpdateConcurrencyException();
-                }
-
                 newActivityBis.TimeStamp = DateTime.Now;
                 await context.ActivityBis.AddAsync(newActivityBis);
                 await context.SaveChangesAsync();
@@ -430,7 +482,7 @@ namespace NTR20Z.Models
         }
 
 
-        public void InsertTeacher(string te)
+        public async Task<int> InsertTeacher(string te)
         {
             using (var context = new LibraryContext())
             {
@@ -442,22 +494,24 @@ namespace NTR20Z.Models
                 teacherBis.TimeStamp = DateTime.Now;
 
                 if( te != null)
-                {
                     teacherBis.name = te;
-                    context.Teacher.Add(teacherBis);
-                    context.SaveChanges();
-                }
                 else 
-                {
                     teacherBis.name = " ";
-                    context.Teacher.Add(teacherBis);
-                    context.SaveChanges();
+
+                await context.Teacher.AddAsync(teacherBis);
+                try
+                {
+                    await context.SaveChangesAsync();
                 }
-                
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                {
+                    return -1;
+                }
+                return 1;
             }
         }
 
-        public void InsertGroup(string gr)
+        public async Task<int> InsertGroup(string gr)
         {
             using (var context = new LibraryContext())
             {
@@ -469,21 +523,24 @@ namespace NTR20Z.Models
                 classGroupBis.TimeStamp = DateTime.Now;
 
                 if (gr != null)
-                {
                     classGroupBis.name = gr;
-                    context.Classgroup.Add(classGroupBis);
-                    context.SaveChanges();
-                }
                 else
-                {
                     classGroupBis.name = " ";
-                    context.Classgroup.Add(classGroupBis);
-                    context.SaveChanges();
-                }           
+
+                await context.Classgroup.AddAsync(classGroupBis);
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                {
+                    return -1;
+                }
+                return 1;       
             }
         }
 
-        public void InsertRoom(string cl)
+        public async Task<int> InsertRoom(string cl)
         {
             using (var context = new LibraryContext())
             {
@@ -494,23 +551,25 @@ namespace NTR20Z.Models
                 roomBis.comment = " ";
                 roomBis.TimeStamp = DateTime.Now;
 
-                if (cl != null)
-                {                   
+                if (cl != null)                 
                     roomBis.name = cl;
-                    context.Room.Add(roomBis);
-                    context.SaveChanges();
-                }
                 else
-                {
                     roomBis.name = " ";
-                    context.Room.Add(roomBis);
-                    context.SaveChanges();
+
+                await context.Room.AddAsync(roomBis);
+                try
+                {
+                    await context.SaveChangesAsync();
                 }
-                
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                {
+                    return -1;
+                }
+                return 1;    
             }
         }
 
-        public void InsertSubject(string cl)
+        public async Task<int> InsertSubject(string cl)
         {
             using (var context = new LibraryContext())
             {
@@ -522,21 +581,21 @@ namespace NTR20Z.Models
                 subjectBis.TimeStamp = DateTime.Now;
 
                 if ( cl != null)
-                {
                     subjectBis.name = cl;
-                    context.Subject.Add(subjectBis);
-                    context.SaveChanges();
-                }
                 else 
-                {
                     subjectBis.name = " ";
-                    context.Subject.Add(subjectBis);
-                    context.SaveChanges();
+ 
+                await context.Subject.AddAsync(subjectBis);
+                try
+                {
+                    await context.SaveChangesAsync();
                 }
-                
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                {
+                    return -1;
+                }
+                return 1;    
             }
         }
-
-        
     }
 }

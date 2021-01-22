@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
 
 namespace NTR20Z.Migrations
@@ -14,7 +15,8 @@ namespace NTR20Z.Migrations
                     classgroupID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(30)", nullable: false),
-                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +30,8 @@ namespace NTR20Z.Migrations
                     roomID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(30)", nullable: false),
-                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +45,8 @@ namespace NTR20Z.Migrations
                     slotID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(30)", nullable: false),
-                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,7 +60,8 @@ namespace NTR20Z.Migrations
                     subjectID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(30)", nullable: false),
-                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -70,7 +75,8 @@ namespace NTR20Z.Migrations
                     teacherID = table.Column<int>(nullable: false)
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     name = table.Column<string>(type: "varchar(30)", nullable: false),
-                    comment = table.Column<string>(type: "varchar(4000)", nullable: false)
+                    comment = table.Column<string>(type: "varchar(4000)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -87,7 +93,8 @@ namespace NTR20Z.Migrations
                     subjectID = table.Column<int>(nullable: true),
                     classgroupID = table.Column<int>(nullable: true),
                     roomID = table.Column<int>(nullable: true),
-                    slotID = table.Column<int>(nullable: true)
+                    slotID = table.Column<int>(nullable: true),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,6 +155,36 @@ namespace NTR20Z.Migrations
                 name: "IX_ActivityBis_teacherID",
                 table: "ActivityBis",
                 column: "teacherID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Classgroup_name",
+                table: "Classgroup",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Room_name",
+                table: "Room",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Slot_name",
+                table: "Slot",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subject_name",
+                table: "Subject",
+                column: "name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teacher_name",
+                table: "Teacher",
+                column: "name",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
